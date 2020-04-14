@@ -1,0 +1,87 @@
+@import "~taro-ui/dist/style/components/message.scss";
+
+.loginWrapper{
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  padding:40px 40px 6px;
+  .logo{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 100px;
+    .logoImg{
+      width: 74px;
+      height: 73px;
+      display: block;
+      margin:0 auto 30px;
+    }
+    .name{
+      font-size: 44px;
+    }
+  }
+  .form{
+    margin-bottom: 192px;
+    .platForm{
+      display: flex;
+      height: 90px;
+      justify-content: space-between;
+      flex-direction: row;
+      align-items: center;
+      border-bottom: 2px solid rgba(107, 209, 249, 1);
+      margin-bottom: 32px;
+      .label{
+        min-width: 220px;
+        overflow: hidden;
+        white-space: nowrap;
+        color: rgba(126, 126, 128, 1);
+        font-size: 38px;
+
+      }
+      .input{
+        width: fill-available;
+      }
+      .placeholder{
+        color: #BBBBBB;
+        font-size: 38px;
+      }
+    }
+    .clicked{
+      border-bottom: 2px solid rgba(45, 146, 250, 1)
+    }
+  }
+  .login{
+    height: 86px;
+    line-height: 86px;
+
+    border-radius: 43px;
+    color: #FFFFFF;
+    background-color: #248FFE;
+    margin-bottom: 45px;
+    width: 620px;
+}
+  .clear{
+    height: 86px;
+    line-height: 86px;
+    color: #248FFE;
+    border-radius: 43px;
+    border: 1px solid rgba(45, 146, 250, 1);
+    background-color: transparent;
+    width: 620px;
+  }
+  .version{
+    text-align: right;
+    color: rgba(126, 126, 128, 1);
+    font-size: 18px;
+    position: absolute;
+    right: 1%;
+    bottom: 1%;
+  }
+  .animation{
+    transition: all 0.3s ease-in-out;
+    &:active{
+      transform: scale(0.8);
+    }
+  }
+}

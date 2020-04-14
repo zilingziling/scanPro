@@ -1,0 +1,26 @@
+@import "~taro-ui/dist/style/components/message.scss";
+
+.userinfo{
+  width: 90vw;
+  margin: 0 auto;
+}
+.userTest{
+  margin-bottom: 40px
+}
+.userbnt{
+  text-align: center;
+  margin-top: 100px;
+  background-color: #248FFE;
+  border-radius: 43px;
+  color: #ffffff;
+}
+.userbnt::after{
+  border: none;
+}
+.base_hover {
+  transition: all 0.3s ease-in-out;
+}
+
+.hover {
+  transform: scale(0.8);
+}

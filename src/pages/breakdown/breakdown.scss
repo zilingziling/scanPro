@@ -1,0 +1,100 @@
+
+@import "~taro-ui/dist/style/components/message.scss";
+
+.image-cropper{
+  z-index: 9
+}
+.cancelUp{
+  margin-top: 15px;
+}
+
+.hidden{
+  display:none;
+}
+.shows{
+  display:block;
+}
+.info-text{
+  margin-top: 15px;
+}
+.infos{
+  padding-top: 74px;
+  padding-left: 32px;
+}
+
+.btn1 {
+  background: rgba(45, 146, 250, 1);
+}
+
+.bnt2 {
+  background: rgba(148, 200, 254, 1);
+}
+
+.imgbtn1 {
+  width: 258px;
+  color: #fff;
+  border-radius: 0;
+  margin-left: 0;
+  margin-right: 0
+}
+
+.imgbtn1::after {
+  border: none;
+}
+
+.imgbtn {
+  display: flex;
+  margin-top: 64px;
+  justify-content:space-evenly;
+
+}
+
+.updateImg {
+  /* width: 300px;
+   height: 300px; */
+
+}
+
+.fault-img-img {
+  margin-top: 15pt;
+  /* height: 300px; */
+  /* width: 300px; */
+  min-height: 320px;
+  background: rgba(246, 246, 246, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fault-img-text {
+  /* margin-bottom: 15pt */
+}
+
+.fault-img {
+  width: 640px;
+  margin-left: 55px;
+}
+
+.fault-sele {
+  border-bottom: 2px solid rgba(238, 238, 238, 1);
+  padding-bottom: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 15pt;
+
+}
+
+.fault-sele-view {
+  display: flex;
+  justify-content: space-between;
+}
+.fault{
+  /* z-index: -1 */
+}
+.radio {
+  margin-left: 20px;
+}
+
+.radio2 {
+  margin-right: 60px;
+}
