@@ -20,6 +20,10 @@ export default {
 
         }
         if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
+          wx.showToast({
+            title:'平台号不存在',
+            icon:'none'
+          })
           return logError("api", "请求资源不存在");
         } else if (res.statusCode === HTTP_STATUS.BAD_GATEWAY) {
           return logError("api", "服务端出现了问题");

@@ -7,6 +7,9 @@ import ClassNames from "classnames";
 import "./login.scss";
 import md5 from "../../utils/md5";
 import { version } from "../../service/config";
+import eyeOn from '../../assets/images/eye-on.png'
+import eyeOff from '../../assets/images/eye-off.png'
+
 class Login extends Component {
   config = {
     navigationBarTitleText: "弈简运维管控平台"
@@ -15,7 +18,8 @@ class Login extends Component {
     userName: "",
     password: "",
     platform: "",
-    clicked: 1
+    clicked: 1,
+    showPassword:true
   };
 
   componentDidMount() {
@@ -48,7 +52,7 @@ class Login extends Component {
     const { platform, password, userName } = this.state;
     if (!platform || !password || !userName) {
       wx.showToast({
-        title: "请先填写参数！",
+        title: "请先填写登录信息！",
         icon: "none"
       });
     } else {
@@ -56,55 +60,60 @@ class Login extends Component {
       if (reg.test(platform)) {
         // 存平台号
         wx.setStorageSync("platform", platform);
-        api
-          .post("deviceapi/base_teacher/login", {
-            code: wx.getStorageSync("code"),
-            account: userName,
-            pwd: md5(password),
-            address: 2
-          })
-          .then(r => {
-            if (r.data.code === 200) {
-              Taro.atMessage({
-                message: r.data.msg,
-                type: "success"
-              });
-              wx.setStorageSync("userInfo", r.data.data);
-              // 调绑定接口
-              api
-                .get("wechatmanage/ytjOpenId/binding", {
-                  openId: wx.getStorageSync("openId"),
-                  address: 1,
-                  platformNo: platform,
-                  teacherIdServer: r.data.data.teacherId
-                })
-                .then(resp => {
-                  if (resp.data.code === 0) {
-                    wx.setStorageSync('description',resp.data.data.description)
-                    Taro.switchTab({
-                      url: "../index/index"
+        wx.login({
+          success(res) {
+            if(res.code){
+              api.post("deviceapi/base_teacher/login", {
+                code: res.code,
+                account: userName,
+                pwd: md5(password),
+                address: 2
+              }).then(r => {
+                if (r.data.code === 200) {
+                  wx.showToast({
+                    title: r.data.msg,
+                    icon: "success"
+                  });
+                  wx.setStorageSync("userInfo", r.data.data);
+                  // 调绑定接口
+                  api
+                    .get("wechatmanage/ytjOpenId/binding", {
+                      openId: wx.getStorageSync("openId"),
+                      address: 1,
+                      platformNo: platform,
+                      teacherIdServer: r.data.data.teacherId
+                    })
+                    .then(resp => {
+                      if (resp.data.code === 0) {
+                        Taro.switchTab({
+                          url: "../index/index"
+                        });
+                        this.clear();
+                      } else {
+                        wx.showToast({
+                          title: resp.data.msg,
+                          icon: "none"
+                        });
+                      }
                     });
-                    this.clear();
-                  } else {
-                    Taro.atMessage({
-                      message: resp.data.msg,
-                      type: "error"
-                    });
-                  }
-                });
-            } else {
-              Taro.atMessage({
-                message: r.data.msg,
-                type: "error"
+                } else {
+                  wx.showToast({
+                    title: r.data.msg,
+                    icon:'none'
+                  });
+                }
               });
             }
-          });
+          }
+        })
       } else {
         wx.showToast({
           title: "平台号只能包含数字和字母！",
           icon: "none"
         });
       }
+
+
     }
   };
   render() {
@@ -161,7 +170,9 @@ class Login extends Component {
               className="input"
               placeholder="请输入助教系统密码"
               placeholderClass="placeholder"
+              password={this.state.showPassword}
             ></Input>
+            <Image onClick={()=>this.setState({showPassword: !this.state.showPassword})} src={this.state.showPassword?eyeOff:eyeOn} className='eye'/>
           </View>
         </View>
         <Button className="login animation" type="primary" onClick={this.login}>

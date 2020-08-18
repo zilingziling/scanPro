@@ -7,9 +7,19 @@ class Personal extends Component{
   state={
     name:wx.getStorageSync('userInfo').teacherName,
     platform:wx.getStorageSync('platform'),
-    text:wx.getStorageSync('description')
+    text:''
   }
   componentDidMount(){
+    api.post('wechatmanage/client/findByClientId',{
+      clientId:wx.getStorageSync('platform'),
+      address:1
+    }).then(r=>{
+      if(r.data.code===0){
+        this.setState({
+          text:r.data.data
+        })
+      }
+    })
   }
   logout=()=>{
     wx.showModal({
